@@ -32,51 +32,9 @@ else(  )
 endif(  )
 target_link_libraries(glew ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES} )
 
-set(PROJ_CONFIG_DIR lib/cmake/glew)
-set(PROJ_EXPORT_NAME GLEW)
-set(PROJ_EXPORT_NAMESPACE "")
-set(PROJ_TARGET glew)
 
-install(TARGETS ${PROJ_TARGET}
-    EXPORT  ${PROJ_EXPORT_NAME}Targets
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib
-    RUNTIME DESTINATION bin
-    INCLUDES DESTINATION include
-)
-
-install(DIRECTORY include/ DESTINATION include)
-
-set_target_properties(${PROJ_TARGET} PROPERTIES EXPORT_NAME ${PROJ_EXPORT_NAME})
-
-install(EXPORT ${PROJ_EXPORT_NAME}Targets
-    FILE
-        ${PROJ_EXPORT_NAME}Targets.cmake 
-    NAMESPACE
-        ${PROJ_EXPORT_NAMESPACE}
-    DESTINATION
-        ${PROJ_CONFIG_DIR}
-)
-
-include(CMakePackageConfigHelpers)
-write_basic_package_version_file(
-    ${CMAKE_CURRENT_BINARY_DIR}/${PROJ_EXPORT_NAME}ConfigVersion.cmake
-    VERSION ${PROJECT_VERSION}
-    COMPATIBILITY AnyNewerVersion
-)
-
-configure_package_config_file(${PROJ_EXPORT_NAME}Config.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/${PROJ_EXPORT_NAME}Config.cmake
-    INSTALL_DESTINATION ${PROJ_CONFIG_DIR}
-)
-
-install(FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/${PROJ_EXPORT_NAME}Config.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/${PROJ_EXPORT_NAME}ConfigVersion.cmake
-    DESTINATION ${PROJ_CONFIG_DIR}
-)
-
-export(EXPORT ${PROJ_EXPORT_NAME}Targets FILE ${CMAKE_CURRENT_BINARY_DIR}/${PROJ_EXPORT_NAME}Targets.cmake  NAMESPACE ${PROJ_EXPORT_NAME}::)
+include(cmake/HelperMacroFunction.cmake)
+export_library_macro(glew GLEW "" lib/cmake/glew)
 
 
 add_executable( glewinfo src/glewinfo.c)
