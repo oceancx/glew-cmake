@@ -37,10 +37,10 @@ include(cmake/HelperMacroFunction.cmake)
 export_library_macro(glew GLEW "" lib/cmake/glew)
 
 
-add_executable( glewinfo src/glewinfo.c)
-target_compile_definitions(glewinfo PRIVATE -DGLEW_STATIC)
-target_link_libraries( glewinfo glew)
+# add_executable( glewinfo src/glewinfo.c)
+# target_compile_definitions(glewinfo PRIVATE -DGLEW_STATIC)
+# target_link_libraries( glewinfo glew)
 
-add_executable( visualinfo src/visualinfo.c)
-target_compile_definitions(visualinfo PRIVATE -DGLEW_STATIC)
-target_link_libraries( visualinfo glew )
+# add_executable( visualinfo src/visualinfo.c)
+# target_compile_definitions(visualinfo PRIVATE -DGLEW_STATIC)
+# target_link_libraries( visualinfo glew )
